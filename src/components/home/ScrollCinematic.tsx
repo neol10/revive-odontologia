@@ -366,8 +366,7 @@ export function ScrollCinematic() {
         ref={canvasRef}
         width={1920}
         height={1080}
-        className="absolute inset-0 w-full h-full block"
-        style={{ touchAction: "none" }}
+        className="absolute inset-0 w-full h-full block pointer-events-none"
       />
 
       {/* Camada Editorial de Contraste Suave (Vignette sutil) */}
