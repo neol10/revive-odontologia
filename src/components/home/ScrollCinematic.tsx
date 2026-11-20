@@ -97,34 +97,55 @@ export function ScrollCinematic() {
     ctx.imageSmoothingQuality = "high";
 
     if (isMobilePortrait) {
-      // Solução híbrida cinematográfica:
-      // 1. Fundo com blur e escurecimento derivado do próprio frame (evita barras pretas secas)
-      const bgScale = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
-      const bgWidth = Math.round(imgWidth * bgScale);
-      const bgHeight = Math.round(imgHeight * bgScale);
-      const bgOffsetX = Math.round((canvasWidth - bgWidth) / 2);
-      const bgOffsetY = Math.round((canvasHeight - bgHeight) / 2);
+      // Enquadramento Mobile Full-Screen Cinematográfico (Cover inteligente com enquadramento dinâmico)
+      // Mantém a proporção nativa da mídia sem faixas desfocadas acima/abaixo,
+      // acompanhando o ponto focal natural do sorriso e da paciente ao longo do scroll.
+      const scale = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
+      const drawWidth = Math.round(imgWidth * scale);
+      const drawHeight = Math.round(imgHeight * scale);
 
-      ctx.save();
-      ctx.filter = "blur(18px) brightness(0.45)";
-      ctx.drawImage(img, bgOffsetX, bgOffsetY, bgWidth, bgHeight);
-      ctx.restore();
+      const p = Math.max(0, Math.min(1, (frameIndex - 1) / (TOTAL_FRAMES - 1)));
 
-      // 2. Camada principal em proporção natural (contain enriquecido com largura total da tela)
-      const mainScale = canvasWidth / imgWidth;
-      const mainWidth = canvasWidth;
-      const mainHeight = Math.round(imgHeight * mainScale);
-      const mainOffsetX = 0;
-      const mainOffsetY = Math.round((canvasHeight - mainHeight) / 2);
+      // Calibração horizontal contínua do ponto focal (xPct)
+      let xPct = 0.50;
+      if (p <= 0.15) {
+        xPct = 0.48; // centraliza perfeitamente o sorriso no close inicial
+      } else if (p <= 0.38) {
+        const t = (p - 0.15) / 0.23;
+        xPct = 0.48 + t * 0.22; // 0.48 -> 0.70 (acompanha o sorriso em perfil no terço direito)
+      } else if (p <= 0.70) {
+        const t = (p - 0.38) / 0.32;
+        xPct = 0.70 - t * 0.12; // 0.70 -> 0.58 (recentraliza o rosto na transição)
+      } else {
+        const t = (p - 0.70) / 0.30;
+        xPct = 0.58 - t * 0.08; // 0.58 -> 0.50 (simetria perfeita no enquadramento aberto final)
+      }
 
-      // Sombra suave para separar a camada principal do fundo estendido
-      ctx.save();
-      ctx.shadowColor = "rgba(0, 0, 0, 0.45)";
-      ctx.shadowBlur = 24;
-      ctx.drawImage(img, mainOffsetX, mainOffsetY, mainWidth, mainHeight);
-      ctx.restore();
+      // Calibração vertical (yPct) para preservar olhos, sorriso e luz de recorte no terço nobre
+      let yPct = 0.30;
+      if (p <= 0.20) {
+        yPct = 0.46; // close do sorriso
+      } else if (p <= 0.50) {
+        const t = (p - 0.20) / 0.30;
+        yPct = 0.46 - t * 0.16; // 0.46 -> 0.30 (abre suavemente para a expressão facial)
+      } else {
+        yPct = 0.30; // mantém a testa preservada e o queixo livre para o texto inferior
+      }
+
+      const offsetX = Math.round((canvasWidth - drawWidth) * xPct);
+      const offsetY = Math.round((canvasHeight - drawHeight) * yPct);
+
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+      // Gradiente de contraste inferior sutil para garantir legibilidade dos textos sem cobrir o rosto
+      const grad = ctx.createLinearGradient(0, canvasHeight * 0.45, 0, canvasHeight);
+      grad.addColorStop(0, "rgba(38, 39, 36, 0)");
+      grad.addColorStop(0.65, "rgba(38, 39, 36, 0.45)");
+      grad.addColorStop(1, "rgba(38, 39, 36, 0.85)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, canvasHeight * 0.45, canvasWidth, canvasHeight * 0.55);
     } else {
-      // Desktop / Landscape: Cover proporcional aprovado com mesma escala em X e Y
+      // Desktop / Landscape: Cover proporcional clássico aprovado com mesma escala em X e Y
       const scale = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
       const drawWidth = Math.round(imgWidth * scale);
       const drawHeight = Math.round(imgHeight * scale);
@@ -373,31 +394,32 @@ export function ScrollCinematic() {
       <div className="absolute inset-0 bg-gradient-to-t from-grafite/70 via-transparent to-grafite/50 pointer-events-none" />
 
       {/* Camada Textual Sincronizada com a Narrativa */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none p-6 sm:p-12">
-        <Container size="default" className="text-center">
+      {/* No mobile, posiciona os textos no terço inferior com gradiente protetor para nunca cobrir o sorriso/rosto */}
+      <div className="absolute inset-0 z-10 flex items-end sm:items-center justify-center pointer-events-none p-6 pb-20 sm:p-12">
+        <Container size="default" className="text-center relative w-full h-full flex items-end sm:items-center justify-center">
           {scenes.map((scene) => {
             const style = getSceneStyle(scene);
             return (
               <div
                 key={scene.id}
-                className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-4 max-w-lg sm:max-w-3xl mx-auto transition-all duration-75 ease-out"
+                className="absolute inset-x-0 bottom-6 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 flex flex-col items-center justify-center px-4 max-w-lg sm:max-w-3xl mx-auto transition-all duration-75 ease-out"
                 style={style}
               >
                 {scene.id === 4 ? (
-                  <div className="space-y-3 bg-grafite/40 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none p-4 rounded-2xl">
+                  <div className="space-y-2.5 bg-grafite/60 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-4 sm:p-0 rounded-2xl border border-champagne/20 sm:border-none shadow-xl sm:shadow-none max-w-[340px] sm:max-w-none">
                     <span className="h-[1px] w-12 bg-champagne mx-auto block mb-2" />
-                    <h2 className="font-serif text-[30px] sm:text-5xl md:text-6xl text-marfim font-normal tracking-tight drop-shadow-lg">
+                    <h2 className="font-serif text-[26px] sm:text-5xl md:text-6xl text-marfim font-normal tracking-tight drop-shadow-lg">
                       {scene.text}
                     </h2>
                     {scene.subtext && (
-                      <p className="font-sans text-[15px] sm:text-xl text-champagne font-light tracking-wide max-w-lg mx-auto drop-shadow-md">
+                      <p className="font-sans text-[14px] sm:text-xl text-champagne font-light tracking-wide max-w-lg mx-auto drop-shadow-md">
                         {scene.subtext}
                       </p>
                     )}
                   </div>
                 ) : (
-                  <div className="bg-grafite/40 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none px-5 py-3 rounded-2xl max-w-[340px] sm:max-w-none">
-                    <h2 className="font-serif text-[26px] sm:text-4xl md:text-5xl lg:text-6xl text-marfim font-normal leading-[1.18] sm:leading-[1.2] tracking-tight drop-shadow-lg">
+                  <div className="bg-grafite/60 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none px-5 py-3.5 rounded-2xl border border-champagne/20 sm:border-none shadow-xl sm:shadow-none max-w-[340px] sm:max-w-none">
+                    <h2 className="font-serif text-[22px] sm:text-4xl md:text-5xl lg:text-6xl text-marfim font-normal leading-[1.2] sm:leading-[1.2] tracking-tight drop-shadow-lg">
                       {scene.text}
                     </h2>
                   </div>
