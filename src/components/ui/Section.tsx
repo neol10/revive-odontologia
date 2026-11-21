@@ -4,13 +4,13 @@ import { twMerge } from "tailwind-merge";
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   spacing?: "none" | "compact" | "default" | "generous";
-  bg?: "marfim" | "bege" | "areia" | "white" | "grafite" | "verde";
+  bg?: "offwhite" | "cinza" | "petroleo" | "marfim" | "bege" | "areia" | "white" | "grafite" | "verde";
   children: React.ReactNode;
 }
 
 export function Section({
   spacing = "default",
-  bg = "marfim",
+  bg = "offwhite",
   className,
   children,
   ...props
@@ -23,12 +23,15 @@ export function Section({
   };
 
   const bgClasses = {
-    marfim: "bg-marfim text-grafite",
+    offwhite: "bg-offwhite text-grafite",
+    cinza: "bg-cinza text-grafite",
+    petroleo: "bg-petroleo text-offwhite",
+    marfim: "bg-offwhite text-grafite",
     bege: "bg-bege text-grafite",
-    areia: "bg-areia text-grafite",
+    areia: "bg-cinza text-grafite",
     white: "bg-white text-grafite",
-    grafite: "bg-grafite text-marfim",
-    verde: "bg-verde-profundo text-marfim",
+    grafite: "bg-grafite text-offwhite",
+    verde: "bg-petroleo text-offwhite",
   };
 
   return (

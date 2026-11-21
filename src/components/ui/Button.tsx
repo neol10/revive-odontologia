@@ -20,7 +20,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center font-sans tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 select-none";
+    "inline-flex items-center justify-center font-sans tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 select-none";
 
   const sizeClasses = {
     sm: "min-h-[44px] text-xs px-5 py-2.5 rounded-full tracking-editorial uppercase",
@@ -30,13 +30,13 @@ export function Button({
 
   const variantClasses = {
     primary:
-      "bg-verde-profundo text-marfim hover:bg-verde-light active:bg-verde-dark shadow-sm hover:shadow-md",
+      "bg-petroleo text-offwhite hover:bg-petroleo-light active:bg-petroleo-dark shadow-sm hover:shadow-md",
     secondary:
-      "bg-champagne text-grafite-dark hover:bg-champagne-light active:bg-champagne-dark font-medium shadow-sm",
+      "bg-dourado text-grafite-dark hover:bg-dourado-light active:bg-dourado-dark font-medium shadow-sm",
     outline:
-      "border border-taupe text-grafite hover:border-grafite hover:bg-areia/40 transition-colors",
+      "border border-petroleo/35 text-grafite hover:border-petroleo hover:text-petroleo hover:bg-cinza/40 transition-colors",
     ghost:
-      "text-grafite hover:text-verde-profundo hover:bg-champagne/15 transition-colors",
+      "text-grafite hover:text-petroleo hover:bg-dourado/15 transition-colors",
   };
 
   const combinedClasses = twMerge(

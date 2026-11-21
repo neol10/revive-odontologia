@@ -60,7 +60,7 @@ export function Typography({
     "body-large": "text-base sm:text-lg font-normal leading-relaxed",
     body: "text-sm sm:text-base font-light leading-relaxed text-grafite/90",
     caption: "text-xs sm:text-sm font-normal tracking-wide text-taupe",
-    eyebrow: "text-xs uppercase tracking-luxury font-medium text-taupe-dark",
+    eyebrow: "text-xs uppercase tracking-luxury font-medium text-petroleo",
   };
 
   return (

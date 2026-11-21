@@ -23,18 +23,18 @@ export default function HomePage() {
         {/* Transição Editorial Conectada */}
         <section
           id="filosofia"
-          className="relative bg-marfim text-grafite py-16 sm:py-24 md:py-28 border-t border-taupe/15"
+          className="relative bg-offwhite text-grafite py-16 sm:py-24 md:py-28 border-t border-taupe/15"
         >
           <Container size="default" className="text-center">
-            <span className="h-[1px] w-12 bg-champagne-dark mx-auto block mb-5" />
-            <Typography variant="eyebrow" className="text-taupe-dark mb-3 block">
+            <span className="h-[1px] w-12 bg-dourado mx-auto block mb-5" />
+            <Typography variant="eyebrow" className="text-petroleo mb-3 block">
               Filosofia & Propósito
             </Typography>
             <h2 className="font-serif text-[32px] sm:text-4xl md:text-5xl text-grafite font-normal max-w-2xl mx-auto mb-5 leading-[1.16] tracking-tight">
-              Cada sorriso tem sua própria história.
+              Um novo capítulo para o seu sorriso.
             </h2>
             <Typography variant="subtitle" className="max-w-xl mx-auto text-taupe-dark font-light text-[15px] sm:text-lg leading-relaxed">
-              Um convite para descobrir a beleza dos detalhes e a importância de um cuidado individualizado.
+              Na Revive, acreditamos em um cuidado odontológico próximo, atento e humano.
             </Typography>
           </Container>
         </section>

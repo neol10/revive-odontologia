@@ -17,14 +17,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Vizotto Odontologia | Experiência e Cuidado Especial",
+  title: "Revive Odontologia Especializada | Mogi-Guaçu, SP",
   description:
-    "Clínica odontológica de alto padrão dedicada à saúde, estética do sorriso e bem-estar, unindo precisão técnica, acolhimento humanizado e conforto.",
-  metadataBase: new URL("https://vizotto-odontologia.vercel.app"),
+    "Conheça a Revive Odontologia Especializada em Mogi-Guaçu, SP. Entre em contato com nossa equipe e saiba mais sobre nossos atendimentos.",
   openGraph: {
-    title: "Vizotto Odontologia | Cuidado que Inspira Confiança",
-    description:
-      "Atendimento odontológico personalizado em ambiente acolhedor e sofisticado.",
+    title: "Revive Odontologia Especializada",
+    description: "Cuidado odontológico e atendimento em Mogi-Guaçu, São Paulo.",
     locale: "pt_BR",
     type: "website",
   },
@@ -35,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#263C35",
+  themeColor: "#174B59",
   width: "device-width",
   initialScale: 1,
 };
@@ -47,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${plusJakarta.variable}`}>
-      <body className="font-sans bg-marfim text-grafite antialiased">
+      <body className="font-sans bg-offwhite text-grafite antialiased">
         {children}
       </body>
     </html>

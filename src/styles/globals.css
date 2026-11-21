@@ -4,19 +4,27 @@
 
 @layer base {
   :root {
-    --color-bege: #F0E9DF;
-    --color-marfim: #F7F1E8;
-    --color-areia: #E8DDCF;
-    --color-champagne: #D9C4A3;
-    --color-taupe: #A59683;
-    --color-grafite: #262724;
-    --color-verde: #263C35;
+    --color-petroleo: #174B59;
+    --color-petroleo-core: #0D4756;
+    --color-dourado: #B6A16A;
+    --color-dourado-core: #AF9F75;
+    --color-offwhite: #F8F7F4;
+    --color-cinza: #E5E5E5;
+    --color-grafite: #24282B;
     --color-branco: #FFFFFF;
+
+    /* Aliases de compatibilidade estrutural */
+    --color-bege: #F1EFEA;
+    --color-marfim: #F8F7F4;
+    --color-areia: #E5E5E5;
+    --color-champagne: #B6A16A;
+    --color-taupe: #6E767B;
+    --color-verde: #174B59;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-marfim);
+    background-color: var(--color-offwhite);
     color: var(--color-grafite);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -24,14 +32,14 @@
   }
 
   body {
-    background-color: var(--color-marfim);
+    background-color: var(--color-offwhite);
     color: var(--color-grafite);
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: #D9C4A3;
-    color: #262724;
+    background-color: #B6A16A;
+    color: #24282B;
   }
 }

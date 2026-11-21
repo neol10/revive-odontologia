@@ -9,42 +9,67 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Tokens Semânticos Oficiais — Revive Odontologia Especializada
+        petroleo: {
+          DEFAULT: "#174B59", // Azul-petróleo oficial
+          core: "#0D4756",    // Azul-petróleo profundo extraído da logo
+          light: "#216375",
+          dark: "#0F3540",
+        },
+        dourado: {
+          DEFAULT: "#B6A16A", // Dourado suave oficial
+          core: "#AF9F75",    // Dourado extraído da logo
+          light: "#C9B785",
+          dark: "#96824E",
+        },
+        offwhite: {
+          DEFAULT: "#F8F7F4", // Off-white principal
+          light: "#FCFBF9",
+          dark: "#F1EFEA",
+        },
+        cinza: {
+          DEFAULT: "#E5E5E5", // Cinza claro institucional
+          logo: "#D9D9D9",    // Fundo original da logo
+          light: "#EFEFEF",
+          dark: "#D4D4D4",
+        },
+        // Mapeamento de compatibilidade estrutural para preservar componentes existentes
         bege: {
-          DEFAULT: "#F0E9DF", // Bege principal
-          light: "#F7F1E8",
-          dark: "#E8DDCF",
+          DEFAULT: "#F1EFEA", // Superfície secundária acolhedora (Off-white suave)
+          light: "#F8F7F4",
+          dark: "#E5E5E5",
         },
         marfim: {
-          DEFAULT: "#F7F1E8", // Marfim quente
-          quente: "#F7F1E8",
-          light: "#FAF8F4",
-          dark: "#F0E9DF",
+          DEFAULT: "#F8F7F4", // Superfície principal (Off-white Revive)
+          quente: "#F8F7F4",
+          light: "#FCFBF9",
+          dark: "#F1EFEA",
         },
         areia: {
-          DEFAULT: "#E8DDCF", // Areia suave
-          light: "#F0E9DF",
-          dark: "#DFD2C2",
+          DEFAULT: "#E5E5E5", // Superfície alternada (Cinza claro Revive)
+          light: "#F1EFEA",
+          dark: "#D9D9D9",
         },
         champagne: {
-          DEFAULT: "#D9C4A3",
-          light: "#E4D4BC",
-          dark: "#C7AF8A",
+          DEFAULT: "#B6A16A", // Acento nobre (Dourado suave Revive)
+          light: "#C9B785",
+          dark: "#96824E",
         },
         taupe: {
-          DEFAULT: "#A59683",
-          light: "#B8ABA0",
-          dark: "#6E5D4C",
-          deep: "#544638",
+          DEFAULT: "#6E767B", // Apoio neutro frio
+          light: "#9AA1A6",
+          dark: "#495055",
+          deep: "#363B3F",
         },
         grafite: {
-          DEFAULT: "#262724",
-          light: "#3A3B37",
-          dark: "#1A1A18",
+          DEFAULT: "#24282B", // Grafite oficial Revive
+          light: "#363B3F",
+          dark: "#171A1C",
         },
         verde: {
-          profundo: "#263C35",
-          light: "#345047",
-          dark: "#1A2B25",
+          profundo: "#174B59", // Mapeado para Azul-petróleo Revive
+          light: "#216375",
+          dark: "#0F3540",
         },
       },
       fontFamily: {

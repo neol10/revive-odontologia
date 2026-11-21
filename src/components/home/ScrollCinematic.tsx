@@ -21,7 +21,7 @@ interface SceneConfig {
 const scenes: SceneConfig[] = [
   {
     id: 1,
-    text: "Tudo começa com um sorriso.",
+    text: "Um sorriso conta uma história.",
     start: 0.0,
     fadeInEnd: 0.05,
     fadeOutStart: 0.15,
@@ -29,7 +29,7 @@ const scenes: SceneConfig[] = [
   },
   {
     id: 2,
-    text: "A beleza está nos detalhes.",
+    text: "Cada detalhe merece atenção.",
     start: 0.20,
     fadeInEnd: 0.25,
     fadeOutStart: 0.40,
@@ -37,7 +37,7 @@ const scenes: SceneConfig[] = [
   },
   {
     id: 3,
-    text: "Cuidado que inspira confiança.",
+    text: "Cuidar é também acolher.",
     start: 0.45,
     fadeInEnd: 0.50,
     fadeOutStart: 0.68,
@@ -45,8 +45,8 @@ const scenes: SceneConfig[] = [
   },
   {
     id: 4,
-    text: "Vizotto Odontologia",
-    subtext: "Seu sorriso merece atenção especial.",
+    text: "Revive.",
+    subtext: "Um novo olhar para o seu sorriso.",
     start: 0.73,
     fadeInEnd: 0.78,
     fadeOutStart: 0.96,

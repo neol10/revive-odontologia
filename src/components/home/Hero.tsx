@@ -55,14 +55,14 @@ export function Hero() {
     <section
       id="inicio"
       className="relative w-full h-[100svh] min-h-[640px] flex items-center overflow-hidden bg-grafite"
-      aria-label="Apresentação inicial da Vizotto Odontologia"
+      aria-label="Apresentação inicial da Revive Odontologia Especializada"
     >
       {/* Camada de Mídia: Vídeo Cinematográfico + Poster de Fallback */}
       <div className="absolute inset-0 w-full h-full select-none pointer-events-none">
         {/* Imagem Pôster Estática com Prioridade de Exibição */}
         <img
           src="/assets/videos/hero-poster.jpg"
-          alt="Ambiente odontológico cinematográfico Vizotto Odontologia"
+          alt="Ambiente odontológico cinematográfico Revive Odontologia Especializada"
           className={`absolute inset-0 w-full h-full object-cover object-[center_center] sm:object-[65%_center] lg:object-[60%_center] transition-opacity duration-1000 ${
             videoLoaded && !prefersReducedMotion ? "opacity-0" : "opacity-100"
           }`}
@@ -91,8 +91,8 @@ export function Hero() {
         )}
 
         {/* Editorial Veil — Gradiente Multicamada para Legibilidade Absoluta */}
-        {/* Gradiente lateral à esquerda para proteger os textos */}
-        <div className="absolute inset-0 bg-gradient-to-r from-grafite/95 via-grafite/70 to-transparent sm:via-grafite/50 sm:to-transparent" />
+        {/* Gradiente lateral à esquerda em Grafite e Azul-Petróleo Profundo para proteger os textos */}
+        <div className="absolute inset-0 bg-gradient-to-r from-grafite/95 via-petroleo-core/65 to-transparent sm:via-petroleo-core/45 sm:to-transparent" />
 
         {/* Gradiente superior suave para ancoragem do Header */}
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-grafite/85 via-grafite/40 to-transparent" />
@@ -106,35 +106,35 @@ export function Hero() {
         <div className="max-w-2xl sm:max-w-xl lg:max-w-2xl flex flex-col text-left">
           {/* Eyebrow de Marca */}
           <div className="mb-4 sm:mb-6 flex items-center gap-3">
-            <span className="h-[1px] w-8 sm:w-12 bg-champagne/80" />
+            <span className="h-[1px] w-8 sm:w-12 bg-dourado/85" />
             <Typography
               variant="eyebrow"
-              className="text-champagne tracking-luxury text-[11px] sm:text-xs font-medium"
+              className="text-dourado tracking-luxury text-[11px] sm:text-xs font-medium"
             >
-              VIZOTTO ODONTOLOGIA
+              REVIVE ODONTOLOGIA ESPECIALIZADA
             </Typography>
           </div>
 
           {/* Título Principal Editorial com clamp() responsivo */}
           <h1
-            className="font-serif text-marfim font-normal tracking-tight mb-5 sm:mb-6 drop-shadow-sm"
+            className="font-serif text-offwhite font-normal tracking-tight mb-5 sm:mb-6 drop-shadow-sm"
             style={{
               fontSize: "clamp(2.125rem, 4vw + 1.25rem, 3.75rem)",
               lineHeight: 1.12,
             }}
           >
-            A arte e a ciência <br className="hidden sm:inline" />
-            <span className="text-marfim-light italic font-normal">
-              do seu melhor sorriso.
+            Reviver é voltar <br className="hidden sm:inline" />
+            <span className="text-offwhite-light italic font-normal">
+              a sorrir.
             </span>
           </h1>
 
           {/* Subtítulo Humanizado */}
           <Typography
             variant="subtitle"
-            className="text-marfim/90 text-[15px] sm:text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8 sm:mb-10 text-pretty"
+            className="text-offwhite/90 text-[15px] sm:text-lg md:text-xl font-light leading-relaxed max-w-lg mb-8 sm:mb-10 text-pretty"
           >
-            Um olhar cuidadoso para cada detalhe do seu sorriso.
+            Um novo olhar para o cuidado com o seu sorriso.
           </Typography>
 
           {/* Duplo CTA Estratégico com altura acessível e consistência mobile */}
@@ -145,18 +145,18 @@ export function Hero() {
               href={CONTACT_INFO.whatsapp.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[52px] text-[13px] sm:text-sm tracking-luxury shadow-md hover:shadow-champagne/30 text-center w-full sm:w-auto"
+              className="min-h-[52px] text-[13px] sm:text-sm tracking-luxury shadow-md hover:shadow-dourado/30 text-center w-full sm:w-auto"
             >
-              Agendar Consulta
+              Agendar Avaliação
             </Button>
 
             <Button
               variant="outline"
               size="lg"
               href="#clinica"
-              className="min-h-[52px] border-white/30 text-marfim hover:border-champagne hover:text-champagne hover:bg-white/5 backdrop-blur-sm tracking-luxury text-[13px] sm:text-sm text-center w-full sm:w-auto"
+              className="min-h-[52px] border-offwhite/35 text-offwhite hover:border-dourado hover:text-dourado hover:bg-offwhite/5 backdrop-blur-sm tracking-luxury text-[13px] sm:text-sm text-center w-full sm:w-auto"
             >
-              Conheça a Vizotto
+              Conheça a Revive
             </Button>
           </div>
         </div>
@@ -166,13 +166,13 @@ export function Hero() {
       <a
         href="#filosofia"
         aria-label="Rolar para conhecer a clínica"
-        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-marfim/60 hover:text-champagne transition-colors group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne rounded-sm p-1"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-offwhite/65 hover:text-dourado transition-colors group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dourado rounded-sm p-1"
       >
         <span className="text-[10px] uppercase tracking-luxury font-sans font-light">
           Explorar
         </span>
-        <div className="w-5 h-8 sm:h-9 rounded-full border border-white/20 flex items-start justify-center p-1 group-hover:border-champagne/60 transition-colors">
-          <span className="w-1 h-2 rounded-full bg-champagne animate-bounce mt-1" />
+        <div className="w-5 h-8 sm:h-9 rounded-full border border-offwhite/25 flex items-start justify-center p-1 group-hover:border-dourado/65 transition-colors">
+          <span className="w-1 h-2 rounded-full bg-dourado animate-bounce mt-1" />
         </div>
       </a>
     </section>

@@ -5,48 +5,41 @@ import { Button } from "@/components/ui/Button";
 import { CONTACT_INFO, getWhatsAppLink } from "@/constants/contact";
 
 /**
- * SEÇÃO B — ESPECIALIDADES
+ * SEÇÃO B — ESPECIALIDADES / ATENDIMENTOS
  *
- * Atualizado com fotografias editoriais oficiais (Ajuste 05.3).
+ * AUDITORIA DE CONTEÚDO CLÍNICO — REVIVE ODONTOLOGIA ESPECIALIZADA:
+ * A. Tratamentos confirmados da Revive: Nenhum procedimento clínico individual
+ *    foi formalmente confirmado até o momento.
+ * B. Tratamentos ainda não confirmados: Aguardando lista oficial do Dr. Caio Zavarize
+ *    e da Dra. Sthela Jorge.
+ * C. Conteúdo exclusivo da Vizotto (REMOVIDO DA EXIBIÇÃO PÚBLICA):
+ *    Ortodontia, Implantodontia, Periodontia, Endodontia, Cirurgia Bucomaxilo,
+ *    Odontopediatria, Dentística, Estética, Harmonização Facial, Prótese Dental,
+ *    Clínica Geral e DTM/ATM + fotografias /assets/especialidades/*.
+ *
+ * A estrutura de destaque e lista é preservada via arrays tipados vazios até a
+ * confirmação oficial, exibindo apenas orientação neutra de avaliação presencial.
  */
 
-const FEATURED_SPECIALTIES = [
-  {
-    id: "ortodontia",
-    eyebrow: "Alinhamento & Função",
-    title: "Ortodontia",
-    description:
-      "Tratamentos que harmonizam a função e a estética, adaptados ao seu estilo de vida e ao ritmo do seu sorriso.",
-    imageSrc: "/assets/especialidades/ortodontia.jpg",
-    imageAlt: "Tratamento ortodôntico e alinhamento do sorriso",
-    textSide: "right" as const,
-    whatsappMessage: "Olá! Gostaria de agendar uma consulta de Ortodontia na Vizotto Odontologia.",
-  },
-  {
-    id: "implantodontia",
-    eyebrow: "Reabilitação Oral",
-    title: "Implantodontia",
-    description:
-      "Soluções modernas para a reabilitação oral, com planejamento individualizado e foco no resultado natural e duradouro.",
-    imageSrc: "/assets/especialidades/implante-dentario.jpg",
-    imageAlt: "Tratamento de implantodontia e reabilitação oral",
-    textSide: "left" as const,
-    whatsappMessage: "Olá! Gostaria de agendar uma consulta de Implantodontia na Vizotto Odontologia.",
-  },
-];
+interface FeaturedSpecialty {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  textSide: "left" | "right";
+  whatsappMessage: string;
+}
 
-const OTHER_SPECIALTIES = [
-  { number: "03", name: "Periodontia" },
-  { number: "04", name: "Endodontia" },
-  { number: "05", name: "Cirurgia Bucomaxilo" },
-  { number: "06", name: "Odontopediatria" },
-  { number: "07", name: "Dentística" },
-  { number: "08", name: "Estética" },
-  { number: "09", name: "Harmonização Facial" },
-  { number: "10", name: "Prótese Dental" },
-  { number: "11", name: "Clínica Geral" },
-  { number: "12", name: "Disfunção Temporomandibular (DTM/ATM)" },
-];
+interface SpecialtyListItem {
+  number: string;
+  name: string;
+}
+
+const FEATURED_SPECIALTIES: FeaturedSpecialty[] = [];
+
+const OTHER_SPECIALTIES: SpecialtyListItem[] = [];
 
 export function EspecialidadesSection() {
   return (
@@ -56,38 +49,38 @@ export function EspecialidadesSection() {
       aria-labelledby="especialidades-titulo"
     >
       {/* Cabeçalho da Seção */}
-      <div className="bg-marfim py-16 sm:py-24 md:py-28 border-t border-taupe/15">
+      <div className="bg-offwhite py-16 sm:py-24 md:py-28 border-t border-taupe/15">
         <Container size="default" className="text-center">
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3 mb-4 sm:mb-5">
-            <span className="h-[1px] w-8 bg-champagne-dark" />
-            <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-taupe-dark">
+            <span className="h-[1px] w-8 bg-dourado" />
+            <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-petroleo">
               Especialidades
             </span>
-            <span className="h-[1px] w-8 bg-champagne-dark" />
+            <span className="h-[1px] w-8 bg-dourado" />
           </div>
 
           <h2
             id="especialidades-titulo"
             className="font-serif text-[32px] sm:text-4xl md:text-5xl text-grafite font-normal leading-[1.15] tracking-tight max-w-2xl mx-auto mb-5"
           >
-            Tratamentos que respeitam a sua{" "}
-            <span className="italic">individualidade.</span>
+            Atendimento planejado para a sua{" "}
+            <span className="italic text-petroleo">individualidade.</span>
           </h2>
 
           <p className="font-sans text-base text-taupe-dark font-light leading-relaxed max-w-xl mx-auto">
-            Cada pessoa carrega uma história única. Nossos tratamentos são
-            planejados para acompanhar a sua.
+            Na Revive Odontologia Especializada, cada plano de cuidado começa
+            com uma avaliação atenta às necessidades de cada paciente.
           </p>
         </Container>
       </div>
 
-      {/* Especialidades em Destaque — Layout Alternado com Marfim e Areia */}
+      {/* Especialidades em Destaque — Renderização condicional somente para itens confirmados */}
       {FEATURED_SPECIALTIES.map((specialty, index) => (
         <div
           key={specialty.id}
           className={`py-14 sm:py-20 md:py-24 ${
-            index % 2 === 0 ? "bg-marfim" : "bg-areia"
+            index % 2 === 0 ? "bg-offwhite" : "bg-cinza"
           } border-t border-taupe/15`}
         >
           <Container size="wide">
@@ -104,14 +97,13 @@ export function EspecialidadesSection() {
                     : "order-2 lg:order-1"
                 }`}
               >
-                {/* Número + Eyebrow */}
                 <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                  <span className="font-serif text-5xl text-champagne font-normal leading-none select-none">
+                  <span className="font-serif text-5xl text-dourado font-normal leading-none select-none">
                     0{index + 1}
                   </span>
                   <div className="flex flex-col">
-                    <span className="h-[1px] w-6 bg-champagne-dark mb-1" />
-                    <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-taupe-dark">
+                    <span className="h-[1px] w-6 bg-dourado mb-1" />
+                    <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-petroleo">
                       {specialty.eyebrow}
                     </span>
                   </div>
@@ -130,10 +122,10 @@ export function EspecialidadesSection() {
                     href={getWhatsAppLink(specialty.whatsappMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 py-2 text-[15px] sm:text-base font-sans font-medium text-grafite hover:text-verde-profundo transition-colors duration-200 group"
-                    aria-label={`Agendar consulta de ${specialty.title} via WhatsApp`}
+                    className="inline-flex items-center gap-2 py-2 text-[15px] sm:text-base font-sans font-medium text-grafite hover:text-petroleo transition-colors duration-200 group"
+                    aria-label={`Saber mais sobre ${specialty.title} via WhatsApp`}
                   >
-                    <span>Agendar Consulta</span>
+                    <span>Agendar Avaliação</span>
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                       →
                     </span>
@@ -141,7 +133,7 @@ export function EspecialidadesSection() {
                 </div>
               </div>
 
-              {/* Bloco Visual com Fotografia Editorial */}
+              {/* Bloco Visual */}
               <div
                 className={
                   specialty.textSide === "left"
@@ -150,7 +142,7 @@ export function EspecialidadesSection() {
                 }
               >
                 <div
-                  className="relative w-full rounded-2xl overflow-hidden shadow-lg shadow-grafite/8 bg-areia/20"
+                  className="relative w-full rounded-2xl overflow-hidden shadow-lg shadow-grafite/8 bg-cinza/40"
                   style={{ aspectRatio: "3 / 4" }}
                 >
                   <Image
@@ -167,51 +159,72 @@ export function EspecialidadesSection() {
         </div>
       ))}
 
-      {/* Lista Restante das Especialidades */}
-      <div className="bg-marfim py-16 sm:py-20 border-t border-taupe/15">
+      {/* Lista de Especialidades Confirmadas ou Orientação Institucional Neutra */}
+      <div className="bg-offwhite pb-16 sm:pb-24">
         <Container size="default">
-          {/* Confirmação dos atendimentos */}
-          <div className="text-[11px] text-taupe-dark border border-taupe/20 bg-bege/70 rounded px-3 py-2 font-mono leading-relaxed mb-8 sm:mb-10 text-center">
-            ✓ Lista oficial dos atendimentos e especialidades da Vizotto Odontologia.
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-taupe/20 bg-bege/70 rounded-2xl overflow-hidden">
-            {OTHER_SPECIALTIES.map((item, index) => (
-              <div
-                key={item.number}
-                className={`flex items-center gap-4 sm:gap-5 px-6 sm:px-7 py-5 sm:py-6 border-taupe/20 ${
-                  index < OTHER_SPECIALTIES.length - 1
-                    ? "border-b sm:border-b lg:border-b"
-                    : ""
-                } ${
-                  index % 2 === 0 && index < OTHER_SPECIALTIES.length - 1
-                    ? "sm:border-r"
-                    : ""
-                } hover:bg-areia/50 transition-colors duration-200 group cursor-default`}
+          {OTHER_SPECIALTIES.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-taupe/20 bg-offwhite-dark rounded-2xl overflow-hidden">
+              {OTHER_SPECIALTIES.map((item, index) => (
+                <div
+                  key={item.number}
+                  className={`flex items-center gap-4 sm:gap-5 px-6 sm:px-7 py-5 sm:py-6 border-taupe/20 ${
+                    index < OTHER_SPECIALTIES.length - 1
+                      ? "border-b sm:border-b lg:border-b"
+                      : ""
+                  } ${
+                    index % 2 === 0 && index < OTHER_SPECIALTIES.length - 1
+                      ? "sm:border-r"
+                      : ""
+                  } hover:bg-cinza/50 transition-colors duration-200 group cursor-default`}
+                >
+                  <span className="font-serif text-2xl text-dourado font-normal leading-none select-none shrink-0">
+                    {item.number}
+                  </span>
+                  <span className="font-sans text-sm font-medium text-grafite tracking-wide group-hover:text-petroleo transition-colors duration-200">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-petroleo/15 bg-offwhite-dark p-8 sm:p-12 text-center max-w-3xl mx-auto">
+              <span className="h-[1px] w-10 bg-dourado mx-auto block mb-5" />
+              <h3 className="font-serif text-2xl sm:text-3xl text-grafite font-normal leading-snug mb-4">
+                Atendimentos sob avaliação personalizada
+              </h3>
+              <p className="font-sans text-sm sm:text-base text-taupe-dark font-light leading-relaxed max-w-xl mx-auto mb-8">
+                Para conhecer os atendimentos realizados pela equipe da Revive
+                Odontologia Especializada em {CONTACT_INFO.brand.cityDisplay},
+                fale diretamente conosco pelo WhatsApp e tire suas dúvidas sobre
+                uma avaliação.
+              </p>
+              <Button
+                variant="primary"
+                size="lg"
+                href={CONTACT_INFO.whatsapp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto tracking-luxury min-h-[48px] sm:min-h-[52px]"
               >
-                <span className="font-serif text-2xl text-champagne font-normal leading-none select-none shrink-0">
-                  {item.number}
-                </span>
-                <span className="font-sans text-sm font-medium text-grafite tracking-wide group-hover:text-verde-profundo transition-colors duration-200">
-                  {item.name}
-                </span>
-              </div>
-            ))}
-          </div>
+                Agendar Avaliação
+              </Button>
+            </div>
+          )}
 
-          {/* CTA */}
-          <div className="text-center mt-10 sm:mt-12">
-            <Button
-              variant="primary"
-              size="lg"
-              href={CONTACT_INFO.whatsapp.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto tracking-luxury min-h-[48px] sm:min-h-[52px]"
-            >
-              Agendar Avaliação no WhatsApp
-            </Button>
-          </div>
+          {OTHER_SPECIALTIES.length > 0 && (
+            <div className="text-center mt-10 sm:mt-12">
+              <Button
+                variant="primary"
+                size="lg"
+                href={CONTACT_INFO.whatsapp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto tracking-luxury min-h-[48px] sm:min-h-[52px]"
+              >
+                Agendar Avaliação
+              </Button>
+            </div>
+          )}
         </Container>
       </div>
     </section>

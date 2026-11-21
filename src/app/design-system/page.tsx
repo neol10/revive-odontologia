@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { Wordmark } from "@/components/common/Wordmark";
 
 export const metadata: Metadata = {
-  title: "Design System & Guia de Estilo | Vizotto Odontologia",
-  description: "Área interna de documentação técnica e visual da Vizotto Odontologia.",
+  title: "Design System & Guia de Estilo | Revive Odontologia Especializada",
+  description: "Área interna de documentação técnica e visual da Revive Odontologia Especializada.",
   robots: {
     index: false,
     follow: false,
@@ -17,58 +17,69 @@ export const metadata: Metadata = {
 
 export default function DesignSystemPage() {
   const colorPalette = [
-    { name: "Bege Principal", hex: "#F0E9DF", token: "bg-bege", text: "text-grafite", border: "border-taupe/30", role: "Superfície da Clínica" },
-    { name: "Marfim Quente", hex: "#F7F1E8", token: "bg-marfim", text: "text-grafite", border: "border-taupe/30", role: "Superfície Principal" },
-    { name: "Areia Suave", hex: "#E8DDCF", token: "bg-areia", text: "text-grafite", border: "border-taupe/30", role: "Superfície Alternada" },
-    { name: "Champagne", hex: "#D9C4A3", token: "bg-champagne", text: "text-grafite", border: "border-taupe/30", role: "Detalhes & Acentos" },
-    { name: "Taupe", hex: "#A59683", token: "bg-taupe", text: "text-white", border: "border-transparent", role: "Apoio & Subtítulos" },
-    { name: "Grafite", hex: "#262724", token: "bg-grafite", text: "text-marfim", border: "border-transparent", role: "Texto Principal & Contraste" },
-    { name: "Verde Profundo", hex: "#263C35", token: "bg-verde-profundo", text: "text-marfim", border: "border-transparent", role: "Ação & Identidade Nobre" },
+    { name: "Azul-Petróleo", hex: "#174B59", token: "bg-petroleo", text: "text-offwhite", border: "border-transparent", role: "Identidade Nobre & CTAs Primários" },
+    { name: "Petróleo Core (Logo)", hex: "#0D4756", token: "bg-petroleo-core", text: "text-offwhite", border: "border-transparent", role: "Traço Original da Letra R" },
+    { name: "Dourado Suave", hex: "#B6A16A", token: "bg-dourado", text: "text-grafite", border: "border-taupe/20", role: "Acentos, Filetes & CTAs Secundários" },
+    { name: "Dourado Core (Logo)", hex: "#AF9F75", token: "bg-dourado-core", text: "text-grafite", border: "border-taupe/20", role: "Traço Original do Símbolo Dental" },
+    { name: "Off-White", hex: "#F8F7F4", token: "bg-offwhite", text: "text-grafite", border: "border-taupe/30", role: "Superfície Principal Luminosa" },
+    { name: "Cinza Claro", hex: "#E5E5E5", token: "bg-cinza", text: "text-grafite", border: "border-taupe/30", role: "Superfície Alternada & Bordas" },
+    { name: "Grafite", hex: "#24282B", token: "bg-grafite", text: "text-offwhite", border: "border-transparent", role: "Texto Principal & Contraste Profundo" },
   ];
 
   return (
-    <main className="min-h-screen bg-marfim text-grafite flex flex-col">
+    <main className="min-h-screen bg-offwhite text-grafite flex flex-col">
       {/* Topo / Barra de Validação */}
-      <header className="border-b border-taupe/20 bg-marfim/80 backdrop-blur-sm py-5">
+      <header className="border-b border-taupe/20 bg-offwhite/90 backdrop-blur-sm py-5">
         <Container size="wide" className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-verde-profundo animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-petroleo animate-pulse" />
             <Typography variant="caption" className="tracking-luxury uppercase text-taupe-dark">
-              Área Interna — Documentação Visual & Tokens
+              Área Interna — Documentação Visual & Tokens Revive
             </Typography>
           </div>
           <Wordmark size="sm" />
         </Container>
       </header>
 
-      {/* Bloco 1: Wordmark Provisória */}
-      <Section spacing="default" bg="marfim">
+      {/* Bloco 1: Identidade Oficial & Monograma Original */}
+      <Section spacing="default" bg="offwhite">
         <Container size="default">
           <div className="mb-8 text-center sm:text-left">
             <Typography variant="eyebrow" className="mb-2 block">
-              01. Identidade Tipográfica Provisória
+              01. Identidade Oficial & Monograma
             </Typography>
             <Typography variant="h2" className="mb-3">
-              Wordmark Institucional
+              Logo Oficial & Wordmark Revive
             </Typography>
             <Typography variant="body" className="max-w-2xl text-taupe-dark">
-              Tipografia com serifas nobres equilibrada com sans-serif geométrica em proporções editoriais,
-              preservando a seriedade da clínica sem criação de símbolos não-oficiais.
+              Preservação 1:1 do monograma oficial (símbolo do dente em dourado suave integrado à letra R em azul-petróleo)
+              combinado com tipografia editorial em Playfair Display e Plus Jakarta Sans.
             </Typography>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-10 rounded-2xl bg-bege border border-taupe/20 flex flex-col items-center justify-center min-h-[180px] shadow-sm">
-              <Wordmark size="lg" tone="dark" />
-              <Typography variant="caption" className="mt-6 text-taupe-dark">
-                Aplicação em Fundo Claro (Bege / Marfim)
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-8 rounded-2xl bg-[#D9D9D9] border border-taupe/20 flex flex-col items-center justify-center min-h-[200px] shadow-sm">
+              <img
+                src="/assets/brand/logo.jpg"
+                alt="Arquivo original logo.jpg da Revive Odontologia Especializada"
+                className="w-24 h-24 object-contain rounded-lg"
+              />
+              <Typography variant="caption" className="mt-4 text-grafite font-medium text-center">
+                Arquivo Original (logo.jpg • 150×150)
               </Typography>
             </div>
 
-            <div className="p-10 rounded-2xl bg-verde-profundo flex flex-col items-center justify-center min-h-[180px] shadow-sm">
-              <Wordmark size="lg" tone="light" />
-              <Typography variant="caption" className="mt-6 text-champagne/80">
-                Aplicação em Fundo Nobre (Verde Profundo / Grafite)
+            <div className="p-8 rounded-2xl bg-offwhite border border-taupe/20 flex flex-col items-center justify-center min-h-[200px] shadow-sm">
+              <Wordmark size="md" tone="dark" />
+              <Typography variant="caption" className="mt-6 text-taupe-dark text-center">
+                Aplicação em Superfície Clara (Off-White #F8F7F4)
+              </Typography>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-petroleo flex flex-col items-center justify-center min-h-[200px] shadow-sm">
+              <Wordmark size="md" tone="light" />
+              <Typography variant="caption" className="mt-6 text-dourado/90 text-center">
+                Aplicação em Fundo Nobre (Azul-Petróleo #174B59)
               </Typography>
             </div>
           </div>
@@ -76,18 +87,18 @@ export default function DesignSystemPage() {
       </Section>
 
       {/* Bloco 2: Paleta de Cores Oficial */}
-      <Section spacing="default" bg="marfim" className="border-t border-taupe/15">
+      <Section spacing="default" bg="offwhite" className="border-t border-taupe/15">
         <Container size="default">
           <div className="mb-8">
             <Typography variant="eyebrow" className="mb-2 block">
               02. Sistema de Cores
             </Typography>
             <Typography variant="h2" className="mb-3">
-              Paleta Aprovada
+              Paleta Institucional Revive
             </Typography>
             <Typography variant="body" className="max-w-2xl text-taupe-dark">
-              Tons terrosos, superfícies quentes acolhedoras (bege, marfim e areia) e verde profundo que transmitem acolhimento e sofisticação
-              com contrastes em conformidade WCAG.
+              Harmonia entre o Azul-Petróleo (#174B59 / #0D4756), Dourado Suave (#B6A16A / #AF9F75),
+              superfícies luminosas em Off-White (#F8F7F4), Cinza Claro (#E5E5E5) e Grafite (#24282B).
             </Typography>
           </div>
 
@@ -226,12 +237,12 @@ export default function DesignSystemPage() {
       </Section>
 
       {/* Rodapé da Validação */}
-      <footer className="mt-auto border-t border-taupe/20 bg-grafite text-marfim py-8">
+      <footer className="mt-auto border-t border-taupe/20 bg-grafite text-offwhite py-8">
         <Container size="wide" className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <Typography variant="caption" className="text-taupe-light">
-            Vizotto Odontologia — Documentação do Design System Interno.
+            Revive Odontologia Especializada — Documentação do Design System Interno.
           </Typography>
-          <Button variant="outline" size="sm" href="/" className="text-marfim border-white/30 hover:border-white">
+          <Button variant="outline" size="sm" href="/" className="text-offwhite border-white/30 hover:border-white hover:text-white">
             ← Voltar para o Site Oficial
           </Button>
         </Container>

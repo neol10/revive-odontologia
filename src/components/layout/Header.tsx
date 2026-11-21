@@ -64,32 +64,32 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         isScrolled
-          ? "bg-grafite/90 backdrop-blur-md py-3.5 border-b border-white/10 shadow-lg shadow-black/10"
-          : "bg-gradient-to-b from-grafite/80 via-grafite/30 to-transparent py-5 sm:py-6"
+          ? "bg-petroleo/95 backdrop-blur-md py-3.5 border-b border-dourado/20 shadow-lg shadow-black/15"
+          : "bg-gradient-to-b from-grafite/85 via-grafite/35 to-transparent py-5 sm:py-6"
       }`}
       role="banner"
     >
-      <Container size="wide" className="flex items-center justify-between">
-        {/* Logotipo / Wordmark à esquerda */}
+      <Container size="wide" className="flex items-center justify-between gap-2">
+        {/* Logotipo / Wordmark Oficial Revive à esquerda */}
         <a
           href="#inicio"
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne rounded-sm py-1 transition-opacity hover:opacity-90"
-          aria-label="Vizotto Odontologia — Voltar ao topo"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dourado rounded-sm py-1 transition-opacity hover:opacity-90 shrink-0"
+          aria-label="Revive Odontologia Especializada — Voltar ao topo"
           onClick={handleNavClick}
         >
-          <Wordmark tone="light" size="sm" className="items-start text-left" />
+          <Wordmark tone="light" size="sm" className="items-center text-left" />
         </a>
 
         {/* Navegação Desktop */}
         <nav
-          className="hidden md:flex items-center space-x-8 lg:space-x-10"
+          className="hidden lg:flex items-center space-x-8 xl:space-x-10"
           aria-label="Navegação principal"
         >
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-xs lg:text-sm font-sans tracking-luxury uppercase text-marfim/85 hover:text-champagne transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne rounded-sm py-1"
+              className="text-xs lg:text-sm font-sans tracking-luxury uppercase text-offwhite/85 hover:text-dourado transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dourado rounded-sm py-1"
             >
               {item.label}
             </a>
@@ -97,25 +97,25 @@ export function Header() {
         </nav>
 
         {/* CTA Agendamento Desktop */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center shrink-0">
           <Button
             variant="secondary"
             size="sm"
             href={CONTACT_INFO.whatsapp.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="tracking-luxury text-[11px] shadow-sm hover:shadow-champagne/20"
+            className="tracking-luxury text-[11px] shadow-sm hover:shadow-dourado/25"
           >
-            Agendar Consulta
+            Agendar Avaliação
           </Button>
         </div>
 
-        {/* Botão Hambúrguer Mobile com área de toque mínima de 48px */}
+        {/* Botão Hambúrguer Mobile/Tablet com área de toque mínima de 48px */}
         <button
           ref={toggleButtonRef}
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden relative min-w-[48px] min-h-[48px] flex items-center justify-center rounded-lg text-marfim hover:text-champagne focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne transition-colors"
+          className="lg:hidden relative min-w-[48px] min-h-[48px] flex items-center justify-center rounded-lg text-offwhite hover:text-dourado focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dourado transition-colors shrink-0"
           aria-label={isMobileMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-drawer"
@@ -140,19 +140,19 @@ export function Header() {
         </button>
       </Container>
 
-      {/* Drawer Mobile */}
+      {/* Drawer Mobile / Tablet */}
       <div
         id="mobile-drawer"
         ref={drawerRef}
         aria-hidden={!isMobileMenuOpen}
-        className={`fixed inset-0 top-[68px] bg-grafite/95 backdrop-blur-xl transition-all duration-400 ease-out md:hidden flex flex-col justify-between p-6 sm:p-8 ${
+        className={`fixed inset-0 top-[72px] bg-petroleo/98 backdrop-blur-xl transition-all duration-400 ease-out lg:hidden flex flex-col justify-between p-6 sm:p-8 ${
           isMobileMenuOpen
             ? "opacity-100 pointer-events-auto translate-y-0"
             : "opacity-0 pointer-events-none -translate-y-4"
         }`}
       >
         <div className="pt-6">
-          <span className="text-[10px] tracking-luxury uppercase text-champagne/70 block mb-6">
+          <span className="text-[10px] tracking-luxury uppercase text-dourado/80 block mb-6">
             Navegação
           </span>
           <nav className="flex flex-col space-y-5" aria-label="Navegação móvel">
@@ -161,20 +161,20 @@ export function Header() {
                 key={item.label}
                 href={item.href}
                 onClick={handleNavClick}
-                className="text-xl sm:text-2xl font-serif text-marfim hover:text-champagne transition-colors py-1 border-b border-white/5 flex items-center justify-between"
+                className="text-xl sm:text-2xl font-serif text-offwhite hover:text-dourado transition-colors py-1 border-b border-offwhite/10 flex items-center justify-between"
                 tabIndex={isMobileMenuOpen ? 0 : -1}
                 style={{
                   transitionDelay: isMobileMenuOpen ? `${idx * 60}ms` : "0ms",
                 }}
               >
                 <span>{item.label}</span>
-                <span className="text-xs font-sans text-taupe tracking-widest">0{idx + 1}</span>
+                <span className="text-xs font-sans text-dourado/75 tracking-widest">0{idx + 1}</span>
               </a>
             ))}
           </nav>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col gap-4">
+        <div className="pt-8 border-t border-offwhite/15 flex flex-col gap-4">
           <Button
             variant="secondary"
             size="lg"
@@ -185,11 +185,11 @@ export function Header() {
             className="w-full text-center"
             tabIndex={isMobileMenuOpen ? 0 : -1}
           >
-            Agendar Consulta
+            Agendar Avaliação
           </Button>
 
-          <p className="text-[11px] text-center text-taupe tracking-wider font-light mt-2">
-            Atendimento exclusivo e acolhedor via WhatsApp.
+          <p className="text-[11px] text-center text-offwhite/65 tracking-wider font-light mt-2">
+            Atendimento via WhatsApp — {CONTACT_INFO.brand.cityDisplay}
           </p>
         </div>
       </div>

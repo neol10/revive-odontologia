@@ -2,15 +2,11 @@ import React from "react";
 import { Container } from "@/components/ui/Container";
 
 /**
- * SEÇÃO C — DIFERENCIAIS
+ * SEÇÃO C — DIFERENCIAIS INSTITUCIONAIS
  *
- * ⚠️ CONTEÚDO PROVISÓRIO:
- * Os itens abaixo são placeholders editoriais neutros.
- * Devem ser confirmados e substituídos pelas informações oficiais
- * da Vizotto Odontologia antes da publicação em produção.
- *
- * NÃO incluir: equipamentos específicos, certificações, anos de
- * experiência ou números não verificados.
+ * Revive Odontologia Especializada — Mogi-Guaçu / SP.
+ * Linguagem institucional acolhedora e objetiva, sem afirmações não verificadas
+ * (equipamentos exclusivos, resultados garantidos, promessas clínicas ou comparações).
  */
 
 const DIFERENCIAIS = [
@@ -18,7 +14,7 @@ const DIFERENCIAIS = [
     number: "01",
     title: "Atendimento Individualizado",
     description:
-      "Cada paciente recebe atenção dedicada. Ouvimos, planejamos e acompanhamos cada etapa com cuidado.",
+      "Cada paciente é ouvido com atenção. Planejamos e acompanhamos cada etapa respeitando o ritmo e as necessidades de cada sorriso.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -35,9 +31,9 @@ const DIFERENCIAIS = [
   },
   {
     number: "02",
-    title: "Ambiente para o Conforto",
+    title: "Cuidado Acolhedor",
     description:
-      "Um espaço concebido para proporcionar tranquilidade desde o momento da chegada até o término da consulta.",
+      "Buscamos oferecer uma experiência tranquila e respeitosa, do primeiro contato até o acompanhamento após a consulta.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -54,9 +50,9 @@ const DIFERENCIAIS = [
   },
   {
     number: "03",
-    title: "Planejamento Dedicado",
+    title: "Planejamento Transparente",
     description:
-      "Avaliação criteriosa e plano de tratamento transparente, pensado para respeitar suas necessidades e expectativas.",
+      "Avaliação criteriosa e orientações claras para que você compreenda cada etapa do seu cuidado odontológico.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -75,9 +71,9 @@ const DIFERENCIAIS = [
   },
   {
     number: "04",
-    title: "Equipe Comprometida",
+    title: "Equipe Próxima",
     description:
-      "Profissionais que entendem que cuidar de um sorriso é, acima de tudo, cuidar de uma pessoa.",
+      "Atendimento conduzido com dedicação pelo Dr. Caio Zavarize e pela Dra. Sthela Jorge, com foco no cuidado humano.",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -100,7 +96,7 @@ export function DiferenciaisSection() {
   return (
     <section
       id="diferenciais"
-      className="relative w-full bg-verde-profundo overflow-hidden py-16 sm:py-24 md:py-32"
+      className="relative w-full bg-petroleo overflow-hidden py-16 sm:py-24 md:py-32"
       aria-labelledby="diferenciais-titulo"
     >
       {/* Detalhe decorativo de fundo */}
@@ -108,8 +104,8 @@ export function DiferenciaisSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-white/[0.015] blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-champagne/[0.03] blur-3xl" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-offwhite/[0.02] blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-dourado/[0.04] blur-3xl" />
       </div>
 
       <Container size="wide" className="relative z-10">
@@ -117,43 +113,43 @@ export function DiferenciaisSection() {
         <div className="mb-12 sm:mb-16 md:mb-20">
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4 sm:mb-5">
-            <span className="h-[1px] w-8 bg-champagne" />
-            <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-champagne/70">
-              Por que a Vizotto
+            <span className="h-[1px] w-8 bg-dourado" />
+            <span className="text-[11px] uppercase tracking-luxury font-sans font-medium text-dourado/85">
+              Por que a Revive
             </span>
           </div>
 
           <h2
             id="diferenciais-titulo"
-            className="font-serif text-[32px] sm:text-4xl md:text-5xl text-marfim font-normal leading-[1.15] tracking-tight max-w-2xl"
+            className="font-serif text-[32px] sm:text-4xl md:text-5xl text-offwhite font-normal leading-[1.15] tracking-tight max-w-2xl"
           >
-            Uma experiência pensada{" "}
-            <span className="italic">para você.</span>
+            Um cuidado pensado{" "}
+            <span className="italic text-dourado-light">para você.</span>
           </h2>
         </div>
 
         {/* Grid de Diferenciais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-marfim/10 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-offwhite/10 rounded-2xl overflow-hidden">
           {DIFERENCIAIS.map((item) => (
             <div
               key={item.number}
-              className="relative flex flex-col bg-verde-profundo px-6 py-8 sm:px-8 sm:py-10 group hover:bg-white/[0.04] transition-colors duration-300"
+              className="relative flex flex-col bg-petroleo px-6 py-8 sm:px-8 sm:py-10 group hover:bg-offwhite/[0.04] transition-colors duration-300"
             >
               {/* Ícone */}
-              <div className="text-champagne mb-5 sm:mb-6">{item.icon}</div>
+              <div className="text-dourado mb-5 sm:mb-6">{item.icon}</div>
 
               {/* Número tipográfico decorativo */}
-              <span className="font-serif text-5xl sm:text-6xl text-marfim/[0.07] font-normal leading-none select-none absolute top-6 right-6 pointer-events-none">
+              <span className="font-serif text-5xl sm:text-6xl text-offwhite/[0.07] font-normal leading-none select-none absolute top-6 right-6 pointer-events-none">
                 {item.number}
               </span>
 
               {/* Título */}
-              <h3 className="font-sans text-base sm:text-lg font-semibold text-marfim mb-2 sm:mb-3 tracking-wide leading-snug">
+              <h3 className="font-sans text-base sm:text-lg font-semibold text-offwhite mb-2 sm:mb-3 tracking-wide leading-snug">
                 {item.title}
               </h3>
 
               {/* Descrição */}
-              <p className="font-sans text-[15px] sm:text-sm text-marfim/75 font-light leading-relaxed">
+              <p className="font-sans text-[15px] sm:text-sm text-offwhite/75 font-light leading-relaxed">
                 {item.description}
               </p>
             </div>
