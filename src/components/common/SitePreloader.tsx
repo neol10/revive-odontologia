@@ -3,15 +3,18 @@
 import React, { useEffect, useState } from "react";
 import {
   getIsPreloadComplete,
+  hasPersistentAssetCache,
   preloadAllSiteAssets,
 } from "@/lib/preloadAssets";
 
 /**
  * TELA DE PRÉ-CARREGAMENTO EDITORIAL — REVIVE ODONTOLOGIA ESPECIALIZADA
  *
- * Bloqueia temporariamente o scroll enquanto todos os 192 frames WebP do
- * ScrollCinematic, o poster/vídeo do Hero e as fontes são carregados e
- * decodificados em memória, garantindo uma experiência de scroll fluida a 60fps.
+ * - Na 1ª visita: bloqueia o scroll e pré-carrega todos os 192 frames WebP + mídia
+ *   do Hero salvando-os na Cache API persistente em disco do navegador.
+ * - A partir da 2ª visita / atualização (F5): detecta o cache persistente, libera
+ *   o site imediatamente sem bloquear a tela e hidrata os frames direto do disco
+ *   em segundo plano em milissegundos.
  */
 export function SitePreloader() {
   const [progress, setProgress] = useState(0);
@@ -19,14 +22,23 @@ export function SitePreloader() {
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    // Se o usuário prefere movimento reduzido ou já carregou, libera imediatamente
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    // 1. Se movimento reduzido ou já carregado em memória: libera na hora
     if (reducedMotion || getIsPreloadComplete()) {
       setProgress(100);
       setIsDismissed(true);
+      return;
+    }
+
+    // 2. Se os assets já foram baixados e salvos em disco na visita anterior:
+    //    libera a tela imediatamente e hidrata os 192 frames do disco local em background!
+    if (hasPersistentAssetCache()) {
+      setProgress(100);
+      setIsDismissed(true);
+      preloadAllSiteAssets();
       return;
     }
 

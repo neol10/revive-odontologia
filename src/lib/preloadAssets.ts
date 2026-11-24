@@ -8,6 +8,8 @@
  */
 
 export const TOTAL_SCROLL_FRAMES = 192;
+const CACHE_NAME = "revive-cinematic-assets-v1";
+const WARM_FLAG_KEY = "revive_assets_cached_v1";
 
 // Cache persistente em memória compartilhado entre SitePreloader e ScrollCinematic
 export const scrollFramesCache: (HTMLImageElement | null)[] = new Array(
@@ -21,32 +23,101 @@ export function getIsPreloadComplete(): boolean {
   return isPreloadComplete;
 }
 
+export function hasPersistentAssetCache(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(WARM_FLAG_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function markPersistentAssetCache(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(WARM_FLAG_KEY, "true");
+  } catch {
+    // Ignora caso modo privado bloqueie localStorage
+  }
+}
+
 export function getFrameSrc(index: number): string {
   const padded = String(index).padStart(4, "0");
   return `/assets/scroll-sequence/frame-${padded}.webp`;
 }
 
 /**
+ * Busca a URL priorizando a Cache API persistente do navegador (disco local).
+ * Na primeira visita baixa da rede e salva no cache persistente;
+ * nos próximos reloads lê direto do disco em milissegundos sem depender da rede.
+ */
+async function getCachedBlobUrl(
+  url: string,
+  cache: Cache | null
+): Promise<{ src: string; revoke?: () => void }> {
+  if (!cache) return { src: url };
+
+  try {
+    let response = await cache.match(url);
+    if (!response) {
+      response = await fetch(url, { cache: "force-cache" });
+      if (response.ok) {
+        // Salva cópia em disco no Cache Storage sem bloquear
+        cache.put(url, response.clone()).catch(() => {});
+      }
+    }
+
+    if (response && response.ok) {
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      return {
+        src: objectUrl,
+        revoke: () => URL.revokeObjectURL(objectUrl),
+      };
+    }
+  } catch {
+    // Fallback silencioso para carregamento direto via URL
+  }
+
+  return { src: url };
+}
+
+/**
  * Carrega e decodifica um único frame WebP armazenando-o no cache compartilhado.
  */
-export function loadScrollFrame(index: number): Promise<HTMLImageElement | null> {
+export async function loadScrollFrame(
+  index: number,
+  cache?: Cache | null
+): Promise<HTMLImageElement | null> {
   const existing = scrollFramesCache[index - 1];
   if (existing && existing.complete && existing.naturalWidth > 0) {
-    return Promise.resolve(existing);
+    return existing;
   }
+
+  const url = getFrameSrc(index);
+  let activeCache = cache;
+  if (activeCache === undefined && typeof window !== "undefined" && "caches" in window) {
+    try {
+      activeCache = await window.caches.open(CACHE_NAME);
+    } catch {
+      activeCache = null;
+    }
+  }
+
+  const { src, revoke } = await getCachedBlobUrl(url, activeCache ?? null);
 
   return new Promise((resolve) => {
     const img = new Image();
     img.decoding = "async";
-    img.src = getFrameSrc(index);
 
     const finalize = () => {
       scrollFramesCache[index - 1] = img;
+      // Libera o blob URL após o decode estar em memória para evitar vazamento de RAM
+      if (revoke) revoke();
       resolve(img);
     };
 
     img.onload = () => {
-      // Pré-decodifica na GPU quando suportado para eliminar jank na primeira passagem do scroll
       if (typeof img.decode === "function") {
         img
           .decode()
@@ -58,8 +129,11 @@ export function loadScrollFrame(index: number): Promise<HTMLImageElement | null>
     };
 
     img.onerror = () => {
+      if (revoke) revoke();
       resolve(null);
     };
+
+    img.src = src;
   });
 }
 
@@ -132,6 +206,16 @@ export function preloadAllSiteAssets(
       onProgress?.(pct);
     };
 
+    // Abre a Cache API persistente uma única vez para todos os 192 frames
+    let persistentCache: Cache | null = null;
+    if (typeof window !== "undefined" && "caches" in window) {
+      try {
+        persistentCache = await window.caches.open(CACHE_NAME);
+      } catch {
+        persistentCache = null;
+      }
+    }
+
     // Inicia assets paralelos de alta prioridade (poster, monograma, vídeo do hero e fontes)
     const criticalParallel = Promise.all([
       preloadStaticImage("/assets/videos/hero-poster.jpg").then(report),
@@ -146,9 +230,10 @@ export function preloadAllSiteAssets(
       ).then(report),
     ]);
 
-    // Carrega todos os 192 frames WebP em lotes paralelos (12 por vez) para máxima velocidade
-    // sem saturar conexões HTTP/2 ou travar a thread principal
-    const BATCH_SIZE = 12;
+    // Em visitas subsequentes (cache já aquecido em disco), hidrata em lotes maiores (24 por vez)
+    // para liberar o site quase instantaneamente; na primeira visita usa lotes de 12 para a rede
+    const isWarm = hasPersistentAssetCache();
+    const BATCH_SIZE = isWarm ? 24 : 12;
     for (let i = 1; i <= TOTAL_SCROLL_FRAMES; i += BATCH_SIZE) {
       const batch: Promise<void>[] = [];
       for (
@@ -156,7 +241,7 @@ export function preloadAllSiteAssets(
         j < Math.min(i + BATCH_SIZE, TOTAL_SCROLL_FRAMES + 1);
         j++
       ) {
-        batch.push(loadScrollFrame(j).then(() => report()));
+        batch.push(loadScrollFrame(j, persistentCache).then(() => report()));
       }
       await Promise.all(batch);
     }
@@ -164,6 +249,7 @@ export function preloadAllSiteAssets(
     await criticalParallel;
 
     isPreloadComplete = true;
+    markPersistentAssetCache();
     onProgress?.(100);
   })();
 
