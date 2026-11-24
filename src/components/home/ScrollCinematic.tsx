@@ -5,8 +5,13 @@ import { Container } from "@/components/ui/Container";
 import { Typography } from "@/components/ui/Typography";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  TOTAL_SCROLL_FRAMES,
+  scrollFramesCache,
+  loadScrollFrame,
+} from "@/lib/preloadAssets";
 
-const TOTAL_FRAMES = 192;
+const TOTAL_FRAMES = TOTAL_SCROLL_FRAMES;
 
 interface SceneConfig {
   id: number;
@@ -57,7 +62,7 @@ const scenes: SceneConfig[] = [
 export function ScrollCinematic() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES).fill(null));
+  const imagesRef = useRef<(HTMLImageElement | null)[]>(scrollFramesCache);
   const currentFrameRef = useRef<number>(1);
   const lastDrawnFrameRef = useRef<number>(1);
   const rafIdRef = useRef<number | null>(null);
@@ -177,24 +182,11 @@ export function ScrollCinematic() {
     }
   }, [renderFrame]);
 
-  // Carregamento assíncrono de imagem com cache em memória
+  // Carregamento assíncrono de imagem usando o cache global compartilhado com o SitePreloader
   const loadImage = useCallback((index: number): Promise<HTMLImageElement> => {
-    return new Promise((resolve, reject) => {
-      if (imagesRef.current[index - 1]) {
-        resolve(imagesRef.current[index - 1]!);
-        return;
-      }
-
-      const img = new Image();
-      const padded = String(index).padStart(4, "0");
-      img.src = `/assets/scroll-sequence/frame-${padded}.webp`;
-      img.decoding = "async";
-
-      img.onload = () => {
-        imagesRef.current[index - 1] = img;
-        resolve(img);
-      };
-      img.onerror = reject;
+    return loadScrollFrame(index).then((img) => {
+      if (!img) throw new Error(`Failed to load frame ${index}`);
+      return img;
     });
   }, []);
 

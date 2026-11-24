@@ -1,4 +1,5 @@
 import React from "react";
+import { SitePreloader } from "@/components/common/SitePreloader";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/home/Hero";
 import { ScrollCinematic } from "@/components/home/ScrollCinematic";
@@ -13,6 +14,9 @@ import { Typography } from "@/components/ui/Typography";
 export default function HomePage() {
   return (
     <>
+      {/* Pré-carregamento completo dos 192 frames e mídia do Hero antes de liberar o scroll */}
+      <SitePreloader />
+
       {/* Header Premium com navegação e CTA */}
       <Header />
 
